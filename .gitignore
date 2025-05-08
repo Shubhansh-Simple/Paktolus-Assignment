@@ -1,0 +1,9 @@
+# Vim Files
+*.swp
+
+# db
+*.sqlite3
+
+# python
+*.pyc
+__pycache__/
