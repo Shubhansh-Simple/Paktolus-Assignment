@@ -1,7 +1,8 @@
 # Core/settings.py
 
 # python
-from pathlib import Path
+from pathlib          import Path
+from logging.handlers import RotatingFileHandler
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -119,3 +120,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# LOGGING CONFIGURATION
+LOGGING = {
+    "version" : 1,
+    "disable_existing_loggers" : False,
+    "handlers" : {
+        "rotating_file"   : {
+            "class"       : "logging.handlers.RotatingFileHandler",    # auto handles the log files rotation
+            "filename"    : "request.log",                             # writting log in this file
+            "maxBytes"    : 1024 * 1024 * 5,                           # max size upto 5MB before rotation
+            "backupCount" : 5,                                         # keeping upto 5 backups files of log
+            "level"       : "INFO",
+            "formatter"   : "verbose"
+        },
+    },
+    "loggers" : {
+        "middlewares" : {                                              # Logs the request path and method
+            "level"    : "INFO",
+            "handlers" : ["rotating_file"]
+        }
+    },
+    "formatters" : {
+        "verbose" : {
+            "format" : "[ {asctime} ] {message}",                      # for eg. [ 2025-05-08 17:27:55,429 ] "POST /events/"
+            "style"  : "{"
+        }
+    }
+}
