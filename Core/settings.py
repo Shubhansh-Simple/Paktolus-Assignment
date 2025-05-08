@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # local apps
-    # Coming Soon
+    'event_app',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Setting time zone as per India's time
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

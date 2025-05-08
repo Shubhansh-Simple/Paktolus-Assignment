@@ -1,5 +1,4 @@
 # Core/urls.py
-URL configuration for Core project.
 
 # django
 from django.contrib import admin
@@ -10,7 +9,11 @@ from Core.views import CustomPageNotFound, CustomInternalServerError
 
 
 urlpatterns = [
+    # for administration site ( for developers )
     path('admin/', admin.site.urls),
+
+    # for event app
+    path('events/', include('event_app.apis.urls')),
 ]
 
 
