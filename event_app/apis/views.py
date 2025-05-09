@@ -86,8 +86,7 @@ class EventListCreateAPIView(ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
-            print('Data is valid - ',serializer.validated_data)
-            event = serializer.save()
+            event = serializer.save()                                              # new event created
 
             # Response
             response = {

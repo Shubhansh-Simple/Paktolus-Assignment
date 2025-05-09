@@ -14,14 +14,14 @@ logger = logging.getLogger('middlewares')
 # REQUEST AUDIT MIDDLEWARE #
 ############################
 class RequestAuditMiddleware:
-
+    '''Audit the upcoming requests for headers & logger'''
 
     def __init__(self, get_response):
         self.get_response = get_response
 
 
     def __call__(self, request):
-        '''Log the requests and validate the presence of custom headers'''
+        '''Log the requests and validate the presence of request's custom header'''
 
         # Logging the request path and method into "request.log" file
         logger.info(f'"{request.method} {request.path}"')

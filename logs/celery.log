@@ -1,0 +1,5 @@
+[2025-05-09 09:52:28,906: worker] celery@ittakes ready.
+[2025-05-09 09:52:36,731: tasks] "New event received: [25]"
+[2025-05-09 09:52:36,732: trace] Task event_app.tasks.log_to_file[ea8a1d6e-0c2f-4a2e-8e96-3e7d49282e30] succeeded in 0.0012274170003365725s: None
+[2025-05-09 09:52:54,901: tasks] "New event received: [26]"
+[2025-05-09 09:52:54,901: trace] Task event_app.tasks.log_to_file[0e34b74c-e2ef-4e3c-83e6-0f45ae3160fc] succeeded in 0.0005199860024731606s: None

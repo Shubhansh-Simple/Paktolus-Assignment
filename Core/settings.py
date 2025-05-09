@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'Core.middlewares.RequestAuditMiddleware',
+    'Core.middlewares.RequestAuditMiddleware',                          # Our Custom Request Audio Middleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -122,29 +122,63 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# LOGGING CONFIGURATION
+########################
+# CELERY CONFIGURATION #
+########################
+CELERY_BROKER_URL                = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT            = ['json']
+CELERY_TASK_SERIALIZER           = 'json'
+CELERY_WORKER_HIJACK_ROOT_LOGGER = False
+
+#########################
+# LOGGING CONFIGURATION #
+#########################
 LOGGING = {
     "version" : 1,
     "disable_existing_loggers" : False,
+
+    # HANDLERS #
     "handlers" : {
-        "rotating_file"   : {
-            "class"       : "logging.handlers.RotatingFileHandler",    # auto handles the log files rotation
-            "filename"    : "request.log",                             # writting log in this file
-            "maxBytes"    : 1024 * 1024 * 5,                           # max size upto 5MB before rotation
-            "backupCount" : 5,                                         # keeping upto 5 backups files of log
-            "level"       : "INFO",
-            "formatter"   : "verbose"
+
+        # MIDDLE LOG HANDLER #
+        "middleware_log_handler" : {
+            "class"              : "logging.handlers.RotatingFileHandler",    # auto handles the log files rotation
+            "filename"           : "logs/request.log",                        # writting log in this file
+            "maxBytes"           : 1024 * 1024 * 5,                           # max size upto 5MB before rotation
+            "backupCount"        : 5,                                         # keeping upto 5 backups files of log
+            "level"              : "INFO",
+            "formatter"          : "verbose"
+        },
+
+        # CELERY LOG HANDLER #
+        "celery_log_handler" : {
+            "class"          : "logging.handlers.RotatingFileHandler",
+            "filename"       : "logs/celery.log",
+            "maxBytes"       : 1024 * 1024 * 5,
+            "backupCount"    : 5,
+            "level"          : "INFO",
+            "formatter"      : "verbose"
         },
     },
+
+    # LOGGERS #
     "loggers" : {
-        "middlewares" : {                                              # Logs the request path and method
-            "level"    : "INFO",
-            "handlers" : ["rotating_file"]
+        "middlewares" : {                                                     # Logs the request path and method
+            "level"     : "INFO",
+            "handlers"  : ["middleware_log_handler"],
+            "propagate" : False
+        },
+        "celery" : {                                                          # write to an file about event creation through celery task
+            "level"     : "INFO",
+            "handlers"  : ["celery_log_handler"],
+            "propagate" : False
         }
     },
+
+    # FORMATTERS #
     "formatters" : {
         "verbose" : {
-            "format" : "[ {asctime} ] {message}",                      # for eg. [ 2025-05-08 17:27:55,429 ] "POST /events/"
+            "format" : "[{asctime}: {module}] {message}",                             # for eg. [2025-05-08 17:27:55,429: middleware] "POST /events/"
             "style"  : "{"
         }
     }
