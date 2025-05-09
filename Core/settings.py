@@ -110,6 +110,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+APPEND_SLASH = False
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -171,7 +173,7 @@ LOGGING = {
         "celery" : {                                                          # write to an file about event creation through celery task
             "level"     : "INFO",
             "handlers"  : ["celery_log_handler"],
-            "propagate" : False
+            #"propagate" : False                                              # avoid debug msg on terminal
         }
     },
 
