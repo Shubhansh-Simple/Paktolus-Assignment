@@ -44,12 +44,12 @@ It's an assignment task from paktolus
 ## Overview
 This document provides detailed documentation for the Paktolus-Assignment REST API. It includes information on how to interact with the API, available endpoints, request/response format and examples.
 
-#  Creating a new event view
+#  Creating a new event view ( Celery in action )
 <p align="center">
   <a href="https://shub.pythonanywhere.com/profile">
     <img alt="Celery-Success" 
          src="https://raw.githubusercontent.com/Shubhansh-Simple/Paktolus-Assignment/refs/heads/main/Screenshots/Celery-Execution-Success.png"
-         height="500" width="900" /> 
+         height="500" width="950" /> 
   </a>
 </p>
 
