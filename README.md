@@ -4,7 +4,7 @@ It's an assignment task from paktolus
 # Getting Started
 
 ### Installation Guide
-* Clone the repo.
+* Clone the repo
 * Navigate to project directory
 * Install pipenv if not installed already
 * Run `pipenv shell`, it's activates Pipenv virtual environment
@@ -12,15 +12,15 @@ It's an assignment task from paktolus
 * `python manange.py runserver`
 * Open your favourite browser and run `http://localhost:8000/`
 
-## System Requirements
+## Prerequisites
 
 - Python >= 3.10.12
 - Django == 4.2.0 (LTS version)
 
 ## Running the Application
-### 1. Start redis server ( install in your system if not already )
+### 1. Start redis server ( install redis in your system if not already )
 ```
- redis-server --port 6739
+ redis-server --port 6379
 ```
 ### 2. Run Django development server
 ```
@@ -28,16 +28,17 @@ It's an assignment task from paktolus
 ```
 ### 3. Start Celery worker (in a new terminal)
 ```
+  export DJANGO_SETTINGS_MODULE=Core.settings
   celery -A Core worker --loglevel=INFO
 ```
 
 ### API Endpoints
 <b>NOTE</b> : Requests must include <i><b>strict forward slashes</b></i> at the end for proper routing
-| HTTP Verbs | Authentication | Endpoints | Action |
-| --- | --- | --- | --- |
-| GET |  NO |/events/  | To retrieve all events |
-| POST | NO |/events/  | To create a new event |
-| GET |  NO |/events/:pk/  | To retrieve details of a single event |
+| HTTP Verbs | Authentication | Endpoints | Headers | Action |
+| --- | --- | --- | --- | --- |
+| GET |  NO |/events/ | X-Request-ID : [UUID] | To retrieve all events |
+| POST | NO |/events/  | X-Request-ID : [UUID]<br>Content-Type: application/json	 | To create a new event |
+| GET |  NO |/events/:pk/ | X-Request-ID : [UUID] | To retrieve details of a single event |
 
 
 ## Overview
@@ -73,9 +74,10 @@ https://localhost:8000/events/
 
 - **Example Request**:
   ```http
-  POST /events HTTP/1.1
+  POST /events/ HTTP/1.1
   Host: http://localhost:8000/events/
   Content-Type: application/json
+  X-Request-ID: 123
   ```
   ```json
   {
@@ -102,9 +104,9 @@ https://localhost:8000/events/
 
 - **Example Request**:
   ```http
-  GET /events HTTP/1.1
+  GET /events/ HTTP/1.1
   Host: http://localhost:8000/events/
-  Content-Type: application/json
+  X-Request-ID: 123
   ```
 
 - **Example Response**:
