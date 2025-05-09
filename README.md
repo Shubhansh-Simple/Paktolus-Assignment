@@ -43,10 +43,12 @@ It's an assignment task from paktolus
 ## Overview
 This document provides detailed documentation for the Paktolus-Assignment REST API. It includes information on how to interact with the API, available endpoints, request/response format and examples.
 
-# Authenticate User's Collections Listview
+#  Creating a new event view
 <p align="center">
   <a href="https://shub.pythonanywhere.com/profile">
-    <img alt="Responsive" src="Collection-List-View.png" height="500" /> 
+    <img alt="Celery-Success" 
+         src="https://raw.githubusercontent.com/Shubhansh-Simple/Paktolus-Assignment/refs/heads/main/Screenshots/Celery-Execution-Success.png"
+         height="500" width="900" /> 
   </a>
 </p>
 
